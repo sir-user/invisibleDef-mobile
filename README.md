@@ -2,6 +2,8 @@
 
 > Current Version: v2.0.7 | Last APK version: v2.0.6
 
+We completed this project with my university classmate @electricalgorithm in 2021. But now I'm adding it to my github.
+
 This repository made by İstanbul Üniversitesi-Cerrahpaşa Sustainable Energy Research Laboratuary BSc. Students. You must have server files (_invisible defender server_) in order to connect it from the application.
 
 Contributors: @electricalgorithm and @sir-user
@@ -28,4 +30,3 @@ Contributors: @electricalgorithm and @sir-user
 - [ ] Kamera aktarımı da şifrelenmeli.
 - [ ] `Stop` komutu gittiğinde `Untrusted` hatası veriyor. Düzeltilmesi gerek.
 
-We completed this project with my university classmate @electricalgorithm in 2021. But now I'm adding it to my github.
