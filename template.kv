@@ -1,0 +1,180 @@
+#:import CardTransition kivy.uix.screenmanager.CardTransition
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+#:import OneLineIconListItem kivymd.uix.list
+#:import MDList kivymd.uix.list
+#:import Joystick joystick
+#:import MDTooltip kivymd.uix.tooltip
+#:import MDBoxLayout kivymd.uix.boxlayout
+#:import theme_cls kivymd.theming.ThemableBehavior
+#:import Image kivy.uix.image.Image
+
+<TooltipMDIconButton@MDIconButton+MDTooltip>
+
+WinManager:
+    transition: CardTransition()
+    MainWindow:
+        name: "loginPanel"
+        id: lpanel
+    AdminPanel:
+        name: "adminPanel"
+        id: apanel
+
+<MainWindow>:
+    MDCard:
+        orientation: "vertical"
+        padding: "20dp"
+        spacing: "20dp"
+        size_hint: None, None
+        size: "300dp", "300dp"
+        pos_hint: {"center_x": .5, "center_y": .5}
+
+        MDLabel:
+            text: "Invisible Defender"
+            theme_text_color: "Primary"
+            halign: "center"
+            valign: "top"
+            font_style: "H4"
+            size_hint_y: None
+
+        MDBoxLayout:
+            orientation: "vertical"
+
+            adaptive_height: True
+
+            MDTextField:
+                id: usernameID
+                hint_text: "Username@IP:port"
+                multiline: False
+
+            MDTextField:
+                id: passwordID
+                hint_text: "Password"
+                password: True
+                multiline: False
+
+        MDRaisedButton:
+            text: "Log In"
+            text_color: 1,1,1,1
+            md_bg_color: .33, .33, .33, 1
+            pos_hint: {"center_x": .5, "center_y": .5}
+            on_release:
+                app.root.current = "adminPanel" if root.login() else "loginPanel"
+                root.manager.transition.direction = "up"
+
+<AdminPanel>:
+    BoxLayout:
+        orientation: "horizontal"
+        BoxLayout:
+            size_hint_max_x: "45dp"
+            size_hint_min_x: "45dp"
+            MDGridLayout:
+                rows: 5
+                adaptive_width: True
+                md_bg_color: app.theme_cls.primary_dark
+
+                TooltipMDIconButton:
+                    id: temp_shield_toggle_icon
+                    icon: "layers-off"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    tooltip_text: "Temperature Shield"
+                    on_release: root.temp_shield_toggle()
+                TooltipMDIconButton:
+                    id: jammer_toggle_icon
+                    icon: "access-point-network-off"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    tooltip_text: "Jammer"
+                    on_release: root.jammer_toggle()
+                TooltipMDIconButton:
+                    id: car_light_toggle_icon
+                    icon: "car-light-fog"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    tooltip_text: "Car Light"
+                    on_release: root.car_light_toggle()
+                TooltipMDIconButton:
+                    id: car_engine_startstop_icon
+                    icon: "engine-off"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    tooltip_text: "Car Engine"
+                    on_release: root.car_engine_startstop()
+                TooltipMDIconButton:
+                    id: quit_icon
+                    icon: "close-circle"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    tooltip_text: "Exit the Program"
+                    on_release: root.quit()
+
+        BoxLayout:
+            Image:
+                id: live_photo
+                allow_stretch: True
+                keep_ratio: False
+                size_hint_y: None
+                size_hint_x: None
+                width: self.parent.width
+                height: self.parent.height
+
+        MDGridLayout:
+            md_bg_color: app.theme_cls.primary_dark
+            size_hint_x: 0.35
+            size_hint_min_x: "100dp"
+            size_hint_max_x: "175dp"
+            rows: 2
+            ScrollView:
+                MDList:
+                    OneLineIconListItem:
+                        id: battery_item
+                        text: "~"
+                        IconLeftWidget:
+                            icon: "battery-80"
+                    OneLineIconListItem:
+                        id: outside_temp_item
+                        text: "~"
+                        IconLeftWidget:
+                            icon: "weather-sunny"
+                    OneLineIconListItem:
+                        id: inside_temp_item
+                        text: "~"
+                        IconLeftWidget:
+                            icon: "car-defrost-rear"
+                    OneLineIconListItem:
+                        id: pel_right_item
+                        text: "~"
+                        IconLeftWidget:
+                            icon: "border-right"
+                    OneLineIconListItem:
+                        id: pel_left_item
+                        text: "~"
+                        IconLeftWidget:
+                            icon: "border-left"
+                    OneLineIconListItem:
+                        id: pel_top_item
+                        text: "~"
+                        IconLeftWidget:
+                            icon: "border-top"
+                    OneLineIconListItem:
+                        id: pel_back_item
+                        text: "~"
+                        IconLeftWidget:
+                            icon: "border-bottom"
+
+            BoxLayout:
+                size_hint_y: 1
+                Joystick:
+                    id: directionjoystick
+                    size_hint_x: .65
+                    size_hint_y: .65
+                    size_hint_max: "175dp", "175dp"
+                    pos_hint : {"center_x": .5, "center_y": .5}
+                    outer_size: 1.05
+                    inner_size: 1.05
+                    pad_size:   0.5
+                    outer_line_width: 0.1
+                    inner_line_width: 0.1
+                    pad_line_width:   0.1
+                    outer_background_color: app.theme_cls.bg_normal
+                    outer_line_color:       app.theme_cls.divider_color
+                    inner_background_color: app.theme_cls.bg_normal
+                    inner_line_color:       app.theme_cls.bg_normal
+                    pad_background_color:   app.theme_cls.primary_dark
+                    pad_line_color:         app.theme_cls.primary_dark
+
